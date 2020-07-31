@@ -1,0 +1,37 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.milind.grpc;
+
+message Order {
+    string currency = 1;
+    double totalAmount = 2;
+    string orderId = 3;
+    string emailAddress = 4;
+    string cartURL =5;
+    repeated LineItems lineItems = 6;
+}
+message LineItems {
+    string sku = 1;
+    string name = 2;
+    string description = 3;
+    string category = 4;
+    string other = 5;
+    double unitPrice = 6;
+    double salePrice = 7;
+    double quantity = 8;
+    double totalPrice = 9;
+}
+
+message OrderConfirmation {
+  string orderId = 1;
+  repeated ConfirmedLineItems confirmedLineItems = 2;
+}
+
+message ConfirmedLineItems {
+    string sku = 1;
+    double confirmQuantity = 2;
+}
+
+service OrderConfrimationService {
+    rpc confrim(Order) returns (OrderConfirmation);
+}
